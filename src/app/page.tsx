@@ -1,103 +1,212 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import * as auth from "@/lib/auth";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const router = useRouter();
+  const [url, setUrl] = useState("");
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+  const handleDemoSubmit = () => {
+    if (!url) return;
+
+    if (!auth.isAuthenticated()) {
+      router.push("/signup");
+      return;
+    }
+
+    router.push(`/dashboard/links/new?url=${encodeURIComponent(url)}`);
+  };
+
+  return (
+    <div className="flex min-h-screen flex-col">
+      <main className="flex-1">
+        {/* Hero Section */}
+        <section className="relative overflow-hidden bg-background py-32 md:py-40">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="relative z-10 mx-auto flex max-w-[800px] flex-col items-center space-y-8 text-center">
+              <h1 className="animate-fade-up bg-gradient-to-br from-gray-900 to-gray-600 bg-clip-text text-5xl font-bold tracking-tight text-transparent sm:text-7xl">
+                URL shortener with
+                <span className="block mt-2 bg-gradient-to-r from-primary to-primary/70 bg-clip-text text-transparent">
+                  custom CTA overlays
+                </span>
+              </h1>
+              <p className="mx-auto max-w-[600px] animate-fade-up text-lg text-muted-foreground/90 sm:text-xl [--animation-delay:200ms]">
+                Add a call-to-action to any page you share.
+              </p>
+
+              <div className="mt-10 flex animate-fade-up flex-col items-center gap-4 sm:flex-row [--animation-delay:400ms]">
+                <Link href="/signup">
+                  <Button
+                    size="lg"
+                    className="h-12 w-full px-8 text-lg shadow-lg transition-transform hover:scale-105 sm:w-auto"
+                  >
+                    Get Started
+                  </Button>
+                </Link>
+                <Link href="/pricing">
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="h-12 w-full px-8 text-lg transition-transform hover:scale-105 sm:w-auto"
+                  >
+                    View Pricing
+                  </Button>
+                </Link>
+              </div>
+
+              {/* URL Input Demo */}
+              <div className="relative mt-16 w-full max-w-2xl animate-fade-up [--animation-delay:600ms]">
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-primary/30 opacity-30 blur"></div>
+                <div className="relative rounded-xl border bg-card/50 backdrop-blur-sm p-8 shadow-2xl">
+                  <div className="flex flex-col items-center gap-4 sm:flex-row">
+                    <input
+                      type="url"
+                      placeholder="https://example.com/article"
+                      value={url}
+                      onChange={(e) => setUrl(e.target.value)}
+                      className="flex h-12 w-full rounded-lg border border-input/50 bg-background/50 px-4 py-2 text-base backdrop-blur-sm transition-colors focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                    />
+                    <Button
+                      size="lg"
+                      onClick={handleDemoSubmit}
+                      className="h-12 w-full px-8 text-base font-semibold shadow-lg transition-transform hover:scale-105 sm:w-auto"
+                    >
+                      Get Started
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Background decoration */}
+          <div className="absolute left-1/2 top-0 -z-10 h-[1000px] w-[1000px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary/5 blur-3xl"></div>
+        </section>
+
+        {/* Features Section */}
+        <section className="relative border-t bg-background py-32">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="relative z-10 mx-auto space-y-20">
+              <div className="mx-auto flex max-w-[58rem] flex-col items-center justify-center gap-4 text-center">
+                <h2 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
+                  Features
+                </h2>
+                <p className="max-w-[85%] text-lg text-muted-foreground">
+                  Everything you need to boost engagement and drive traffic
+                </p>
+              </div>
+              <div className="mx-auto grid max-w-[64rem] justify-center gap-8 sm:grid-cols-2 md:grid-cols-3">
+                {features.map((feature) => (
+                  <div
+                    key={feature.title}
+                    className="group relative overflow-hidden rounded-xl border bg-card p-2 transition-all duration-300 hover:shadow-xl hover:-translate-y-1 hover:border-primary/50"
+                  >
+                    <div className="flex h-[200px] flex-col items-center justify-between rounded-lg p-6 text-center">
+                      <feature.icon className="h-12 w-12 text-primary transition-transform duration-300 group-hover:scale-110" />
+                      <div className="space-y-2">
+                        <h3 className="font-bold text-xl text-foreground">
+                          {feature.title}
+                        </h3>
+                        <p className="text-sm text-muted-foreground">
+                          {feature.description}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Background decoration */}
+          <div className="absolute right-0 bottom-0 -z-10 h-[600px] w-[600px] rounded-full bg-primary/5 blur-3xl"></div>
+          <div className="absolute left-0 top-1/2 -z-10 h-[600px] w-[600px] -translate-y-1/2 rounded-full bg-primary/5 blur-3xl"></div>
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
+  );
+}
+
+const features = [
+  {
+    title: "Custom Branded Links",
+    description: "Create short links that match your brand identity",
+    icon: LinkIcon,
+  },
+  {
+    title: "CTA Overlays",
+    description: "Add custom call-to-action overlays to any shared page",
+    icon: LayersIcon,
+  },
+  {
+    title: "Analytics & Tracking",
+    description: "Track clicks and engagement in real-time",
+    icon: BarChartIcon,
+  },
+];
+
+function LinkIcon(props: React.ComponentProps<"svg">) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+      <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+    </svg>
+  );
+}
+
+function LayersIcon(props: React.ComponentProps<"svg">) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.91a1 1 0 0 0 0-1.83Z" />
+      <path d="m22 13.29-9.17 4.17a2 2 0 0 1-1.66 0L2 13.29" />
+      <path d="m22 17.29-9.17 4.17a2 2 0 0 1-1.66 0L2 17.29" />
+    </svg>
+  );
+}
+
+function BarChartIcon(props: React.ComponentProps<"svg">) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <line x1="12" y1="20" x2="12" y2="10" />
+      <line x1="18" y1="20" x2="18" y2="4" />
+      <line x1="6" y1="20" x2="6" y2="16" />
+    </svg>
   );
 }
