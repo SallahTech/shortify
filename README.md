@@ -1,3 +1,49 @@
+Here’s a solid description for your **Shortify SaaS** GitHub repository:  
+
+---
+
+## **🚀 Shortify – Smart URL Shortener with Custom CTAs**  
+
+Shortify is a **powerful URL shortener** designed for **marketers and businesses**, allowing users to **shorten links** while embedding **custom call-to-action (CTA) buttons** on any shared page.  
+
+### **✨ Features**  
+✅ **Branded Short Links** – Customize short URLs with your domain  
+✅ **Custom CTA Overlays** – Add buttons, banners, or popups on shared pages  
+✅ **Advanced Analytics** – Track clicks, conversions, and user engagement  
+✅ **UTM Tracking** – Enhance campaign tracking with UTM parameters  
+✅ **QR Code Generation** – Instantly create QR codes for offline marketing  
+✅ **API Access** – Automate URL shortening with an easy-to-use API  
+
+### **💡 Tech Stack**  
+- **Frontend:** Next.js (React), ShadCN, Tailwind CSS, Framer Motion  
+- **Backend:** NestJS, PostgreSQL  
+- **Hosting:** Vercel (Frontend), AWS EC2 (Backend)  
+
+### **🚀 Get Started**  
+1️⃣ Clone the repo:  
+```sh
+git clone https://github.com/SallahTech/shortify.git
+cd shortify
+```
+2️⃣ Install dependencies:  
+```sh
+npm install
+```
+3️⃣ Run the project:  
+```sh
+npm run dev
+```
+
+### **📌 Roadmap**  
+🔹 **OAuth Login (Google, Twitter, etc.)**  
+🔹 **A/B Testing for CTAs**  
+🔹 **AI-powered CTA Suggestions**  
+🔹 **Integrations (Zapier, Slack, etc.)**  
+
+### **🤝 Contribute**  
+We welcome contributions! Feel free to open an issue or submit a PR.  
+
+
 # Turborepo starter
 
 This Turborepo starter is maintained by the Turborepo core team.
