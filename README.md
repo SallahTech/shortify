@@ -1,7 +1,3 @@
-Here’s a solid description for your **Shortify SaaS** GitHub repository:  
-
----
-
 ## **🚀 Shortify – Smart URL Shortener with Custom CTAs**  
 
 Shortify is a **powerful URL shortener** designed for **marketers and businesses**, allowing users to **shorten links** while embedding **custom call-to-action (CTA) buttons** on any shared page.  
