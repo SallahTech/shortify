@@ -5,13 +5,14 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Navigation } from "@/components/Navigation";
 import { Toaster } from "@/components/ui/toaster";
+import { AuthProvider } from "@/lib/auth-context";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Shortify - URL Shortener with CTA Overlays",
   description:
-    "Shorten URLs and add custom call-to-action overlays to any page you share.",
+    "Shortify is a powerful URL shortener that allows you to add call-to-action overlays to your shortened links.",
 };
 
 export default function RootLayout({
@@ -28,9 +29,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Navigation />
-          <main>{children}</main>
-          <Toaster />
+          <AuthProvider>
+            <Navigation />
+            <main>{children}</main>
+            <Toaster />
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

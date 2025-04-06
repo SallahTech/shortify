@@ -3,18 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "workspaces": [
-    "frontend",
-    "backend",
+    "apps/*",
     "packages/*"
   ],
   "scripts": {
-    "dev": "npm run dev --workspace=frontend & npm run start:dev --workspace=backend",
-    "build": "npm run build --workspaces",
-    "start": "npm run start --workspace=frontend & npm run start:prod --workspace=backend",
-    "lint": "npm run lint --workspaces"
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "start": "turbo run start",
+    "lint": "turbo run lint"
   },
   "devDependencies": {
-    "@types/node": "^20",
-    "typescript": "^5"
-  }
+    "turbo": "latest"
+  },
+  "packageManager": "npm@10.2.4"
 }
